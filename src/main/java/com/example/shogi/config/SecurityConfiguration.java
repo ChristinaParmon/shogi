@@ -7,21 +7,27 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import static com.example.shogi.models.Role.ADMIN;
+
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
-                .authorizeRequests()
-                .anyRequest()
-                .authenticated();
-        http
+                .authorizeHttpRequests(urlConfig -> urlConfig
+                        .antMatchers("/login", "users/registration").permitAll()
+                        .antMatchers("/admin/**").hasAuthority(ADMIN.getAuthority())
+                        .anyRequest().authenticated()
+                )
+
                 //.httpBasic(Customizer.withDefaults())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/login"))
                 .formLogin(login -> login
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/users")
-                        .permitAll())
+                        //.loginPage("/login")
+                        .defaultSuccessUrl("/users"))
         ;
     }
 
