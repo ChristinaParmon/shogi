@@ -1,7 +1,5 @@
 databaseChangeLog:
   - include:
-      file: v1/db.changelog-1.0.sql
-  - include:
       file: v1/alterTableUser.sql
   - include:
       file: v1/addRoleToUsers.sql
