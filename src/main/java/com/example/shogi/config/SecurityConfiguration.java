@@ -24,6 +24,7 @@ import static com.example.shogi.models.Role.ADMIN;
 @Configuration
 public class SecurityConfiguration {
 
+    //extern.key
     private final RsaKeyProperties rsaKeys;
 
     public SecurityConfiguration(RsaKeyProperties rsaKeys) {
