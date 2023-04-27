@@ -5,20 +5,15 @@ import com.example.shogi.models.User;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-01-17T03:29:27+0300",
+    date = "2023-04-27T13:31:12+0300",
     comments = "version: 1.5.3.Final, compiler: javac, environment: Java 17.0.2 (Oracle Corporation)"
 )
 @Component
 public class UserMapperImpl implements UserMapper {
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Override
     public User toEntity(UserDto dto) {
@@ -31,7 +26,7 @@ public class UserMapperImpl implements UserMapper {
         if ( dto.getId() != null ) {
             user.setId( Long.parseLong( dto.getId() ) );
         }
-        user.setPassword( passwordEncoder.encode(dto.getPassword() ));
+        user.setPassword( dto.getPassword() );
         user.setUsername( dto.getUsername() );
         user.setEmail( dto.getEmail() );
         user.setPhone( dto.getPhone() );
